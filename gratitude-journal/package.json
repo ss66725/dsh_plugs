@@ -1,0 +1,21 @@
+{
+  "name": "dsh-gratitude-journal",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "幸福课 · 三件好事：每天一份 Markdown，记三件让自己感到幸运或开心的事，并能查看连续天数。",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "README.md",
+    "scripts/selftest.mjs"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

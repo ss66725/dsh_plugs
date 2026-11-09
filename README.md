@@ -1,13 +1,14 @@
 # dsh_plugs
 
-两个自用的 DeepSeek Harness 插件，附完整用法说明。
+三个自用的 DeepSeek Harness 插件，附完整用法说明。
 
 | 插件 | 一句话 | 你需要它的时候 |
 |---|---|---|
 | [dsh-learning-repo-organizer](./dsh-learning-repo-organizer) | 让模型整理你的 C / Python / Arduino 学习仓库 | 今天写了一堆练习，想按日期归档、补期望输出、查隐私、再推 GitHub |
 | [office-archive](./office-archive) | 把散落的 Office 文件收进归档库，先出方案再动手 | 下载目录、桌面堆着一堆 Word/Excel/PPT，想按「课程作业 / 课程资料 / 电子书」归位 |
+| [gratitude-journal](./gratitude-journal) | 每天一份 Markdown，记三件让自己开心的事 | 想做「三件好事」练习，但总是忘记写、或者写了就散在便签里 |
 
-两个插件互不依赖，可以只装一个。下面按「装 → 配 → 用」三步写。
+三个插件互不依赖，可以只装一个。下面按「装 → 配 → 用」三步写。
 
 ---
 
@@ -231,7 +232,55 @@ powershell -ExecutionPolicy Bypass -File 00_索引\还原到原位置.ps1
 
 ---
 
-# 四、常见问题
+# 四、幸福课 · 三件好事 · 怎么用
+
+每天一份 Markdown，记三件让自己感到幸运或开心的事。这个练习的重点不是写得好，是**每天都写** —— 所以它配一个每晚定时任务。
+
+## 三个工具
+
+| 工具 | 作用 |
+|---|---|
+| `gratitude_today` | 确保今天（可指定日期）的文件存在，不存在就按模板建；返回路径、已记几条、模板内容 |
+| `gratitude_add` | 把一条好事写进指定编号（省略就填第一个空位）；三条满了追加；可选 `why` |
+| `gratitude_review` | 最近 N 天记了几条、连续多少天、哪几天空着。只读 |
+
+## 数据在哪
+
+```
+<dataDir>\2026-11\2026-11-09.md
+```
+
+一天一个文件，按月分文件夹，纯 Markdown。`dataDir` 在插件的 `cordis.patch.yml` 里改，默认 `D:\02ai_practice\幸福课`。
+
+**注意**：插件代码在这，你的日记不在 —— 别把记录目录也提交进来。要备份到 GitHub 请开 private 仓库。
+
+## 每晚的仪式
+
+装一个定时任务，到点开一个专属会话问你一句「今天有哪三件…」：
+
+```
+schedule_create  target=new_once
+rrule: DTSTART;TZID=Asia/Shanghai:20261109T200000
+       RRULE:FREQ=DAILY
+prompt: 调 gratitude_today 看今天记到哪了 → 只问一句
+        「今天有哪三件让你觉得开心或者幸运的事？」→
+        用户说完，复述确认后逐条 gratitude_add 写入 →
+        最后 gratitude_review 报连续天数
+```
+
+用 `new_once` 是为了让它固定落在一个专属会话里，不跟你其它对话混在一起。
+
+## 怎么用
+
+```
+记三件好事
+第一条：今天把一个卡了很久的问题解决了
+最近一周我坚持得怎么样
+```
+
+---
+
+# 五、常见问题
 
 **装完看不到插件卡片？**
 先看 profile 目录有没有 `pnpm install` 成功，再看 `dsh.profile.bundles` 里名字写对没有，最后重启 DSH。
@@ -248,12 +297,12 @@ powershell -ExecutionPolicy Bypass -File 00_索引\还原到原位置.ps1
 **中文乱码？**
 文件统一 UTF-8。终端里看到的乱码通常是 PowerShell 代码页问题，不影响文件内容。
 
-**两个插件会互相影响吗？**
-不会。`office-archive` 只用 `tools` 服务；`learning-repo-organizer` 用 `skills` + `webServer`，`subprocess` 可选。
+**三个插件会互相影响吗？**
+不会。`office-archive` 和 `gratitude-journal` 只用 `tools` 服务；`learning-repo-organizer` 用 `skills` + `webServer`，`subprocess` 可选。
 
 ---
 
-# 五、目录结构
+# 六、目录结构
 
 ```
 dsh_plugs/
@@ -269,10 +318,14 @@ dsh_plugs/
 │   │   ├── references/           c.md / python.md / arduino.md
 │   │   └── scripts/run_tests.py  统一测试运行器
 │   └── scripts/                  自检脚本
-└── office-archive/
-    ├── index.js                  host：office_archive_plan / office_archive_apply
-    ├── cordis.patch.yml
-    └── locale/{zh,en}.json
+├── office-archive/
+│   ├── index.js                  host：office_archive_plan / office_archive_apply
+│   ├── cordis.patch.yml
+│   └── locale/{zh,en}.json
+└── gratitude-journal/
+    ├── index.js                  host：gratitude_today / gratitude_add / gratitude_review
+    ├── cordis.patch.yml          dataDir 默认值在这里改
+    └── scripts/selftest.mjs      12 项自检，不碰真实记录目录
 ```
 
 环境要求：DSH `0.1.0-rc.8` 一代 profile；Node ≥ 20。

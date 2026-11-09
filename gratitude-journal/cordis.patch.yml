@@ -1,0 +1,8 @@
+# 幸福课 · 三件好事：每天一份 Markdown。
+#
+# dataDir 是记录存放的根目录，按月自动分子文件夹。换盘或换路径改这里就行。
+- insert:
+    - id: gratitude-journal
+      name: dsh-gratitude-journal
+      config:
+        dataDir: D:\02ai_practice\幸福课
