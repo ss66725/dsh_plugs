@@ -38,7 +38,7 @@ description: 整理学习代码仓库（C、Python、Arduino）。按日期归�
 7. **隐私检查**：搜索 `cookie`、`password`、`passwd`、`ssid`、`token`、`secret`、`api key`。发现真实的凭据或个人信息时，停止并告诉用户。`YOUR_COOKIE_HERE` 这类占位符可以保留。
 8. **.gitignore**：按语言补充忽略规则，见 `references/`。
 9. **修改源码**：只修复明确的错误，例如编译错误、明显的逻辑错误、可能的缓冲区溢出。风格、警告和设计问题只列出来，由用户决定是否修改。修改前要说明改了什么。
-10. **提交推送**：先征求同意。用户明确说“提交推送”后再做。提交信息要写清楚改动，并以 `Co-Authored-By: Claude Code <noreply@anthropic.com>` 结尾。如果用户开着代理，推送时加上代理设置（见“固定路径”）。推送后用 `git ls-remote` 确认远程 HEAD 与本地一致。
+10. **提交推送**：先征求同意。用户明确说“提交推送”后再做。提交信息要写清楚改动，并以 `Co-Authored-By: DeepSeek Harness <noreply@deepseek.com>` 结尾。如果用户开着代理，推送时加上代理设置（见“固定路径”）。推送后用 `git ls-remote` 确认远程 HEAD 与本地一致。
 
 ## 常见问题
 
