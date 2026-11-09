@@ -1,0 +1,32 @@
+# Learning repository organizer: registers the learning-repo-organizer skill,
+# exposes a run_tests tool, and serves the WebUI dashboard over /learnrepo.
+#
+# This layer inserts the plugin row, in the form the shipped bundles use for
+# their own entries. The config mirrors the fixed paths of the original skill;
+# change a path here (or in the profile patch) when a repository moves.
+- insert:
+    - id: learning-repo-organizer
+      name: dsh-learning-repo-organizer
+      config:
+        repositories:
+          - id: c
+            label: C
+            path: D:\01_代码\01c
+            remote: https://github.com/ss66725/C
+            languages: [c]
+          - id: python
+            label: Python
+            path: D:\01_代码\01py
+            remote: https://github.com/ss66725/Python
+            languages: [python]
+          - id: arduino
+            label: Arduino
+            path: D:\01_代码\01arduino\coding
+            remote: https://github.com/ss66725/Arduino
+            languages: [arduino]
+        # sourceDirectories 原为 D:\summer_practice。2026-11-09 该目录的内容已全部
+        # 合入 Python 仓库（含提交 a6d7153），原目录隔离在
+        # D:\99_归档\_待删_2026-11-09\summer_practice，故此处不再配置来源目录。
+        sourceDirectories: []
+        testTimeoutMs: 30000
+        dashboardPath: /learnrepo

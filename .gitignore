@@ -1,0 +1,18 @@
+# 依赖
+node_modules/
+.pnpm-store/
+
+# DSH 本地状态
+.dsh-project-memory/
+.dsh_tmp/
+.plugin-manager/
+
+# 日志与临时文件
+*.log
+*.tmp
+.tmp-run/
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
+.DS_Store

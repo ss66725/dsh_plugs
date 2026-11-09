@@ -1,0 +1,4 @@
+- insert:
+    - id: office-archive
+      name: '@local/office-archive'
+      config: {}
